@@ -1,71 +1,116 @@
-# ArugaLife
+# ArugaLife Design System
 
-A lively, animated landing page for **ArugaLife** — a warm, empathetic Filipino
-company that brings together caring services for every season of life. Its flagship
-service, **Evera**, is a retirement benefits plan offered in partnership with the
-Philippine Retirement Authority (PRA). Soft sage greens, warm cream, and terracotta
-accents, with Filipino touches throughout (bahay kubo, bayanihan, swaying palms,
-and drifting leaves).
+The shared brand + UI foundation for **ArugaLife** and its flagship product **Evera**.
+Link one stylesheet (`styles.css`), use the tokens and components, and follow the voice
+and visual rules below.
 
-The site ships as a **single self-contained `index.html`** — all styles, scripts,
-fonts, and SVG art are inlined into one file. No build step, no external requests,
-nothing to break on deploy.
+## One company, two voices
 
-## Files
+This system has two surfaces. Pick the right one for the job.
 
-| File | What it is |
-|------|------------|
-| `index.html` | The entire site — markup, styles, scripts, fonts, and art, all inlined |
-| `vercel.json` | Optional clean-URL config for Vercel |
-| `README.md` | This file |
+| | **ArugaLife** (master brand) | **Evera** (product) |
+|---|---|---|
+| **Used for** | Marketing site, brand moments, outreach | The logged-in PRA senior-benefits app |
+| **Feeling** | Warm, empathetic, Filipino warmth open to the world | Institutional, trustworthy, clear |
+| **Palette** | Sage green · cream · terracotta · gold | Navy · orange · neutral grays |
+| **Type** | Plus Jakarta Sans + Caveat (handwritten accent) | Source Sans 3 + Libre Baskerville |
+| **Icons** | Brand SVGs (`assets/`) | Lucide (CDN) |
 
-## Features
+Evera is a retirement benefits plan offered in partnership with the
+**Philippine Retirement Authority (PRA)**.
 
-- **Intro splash** — a 5-second branded loading screen (logo, name, and greeting)
-  plays on first paint, then fades away.
-- **Scroll reveals** — each section gently fades and rises into view as you scroll.
-- **Responsive** — adapts down to small phones, with a slide-in hamburger menu.
-- **Single CTA** — every "Start your journey" button scrolls to the sign-up section.
-- **Bilingual copy** — language switcher in the navbar.
-- **Respects `prefers-reduced-motion`** — animations and drifting leaves disable
-  automatically for visitors who set *reduce motion* in their OS.
+## Who we serve
 
-## Run locally
+ArugaLife is Filipino at heart but not Filipino-only. Our community spans
+local families and a fast-growing base of members from around the world —
+including retirees from the **United States, China, Japan, Korea, and India**
+who choose the Philippines for their next chapter (a natural fit with PRA's
+SRRV program). Keep the copy welcoming and global: lead with *aruga* (Filipino
+care) as the **differentiator**, never as a barrier to entry. Prefer "everyone,"
+"every family," "here and around the world" over "every Filipino."
 
-Just open `index.html` in a browser. Or serve it:
+## Quick start
 
-```bash
-python3 -m http.server 8000
-# then visit http://localhost:8000
+Link the single entry stylesheet — it `@import`s every token and font:
+
+```html
+<link rel="stylesheet" href="styles.css">
 ```
 
-## Deploy to Vercel (via GitHub)
+Then use the CSS variables and React components. Prefer the **semantic aliases**
+(`--surface-page`, `--text-heading`, `--action-primary`, …) over raw palette tokens
+so UI tracks the right brand automatically.
 
-1. Push the files to your repo:
-   ```bash
-   git add .
-   git commit -m "Update ArugaLife site"
-   git push
-   ```
-2. Go to **vercel.com → Add New → Project**, import the repo.
-3. Framework preset: **Other** (it's a static site). Leave the build command empty
-   and the output directory as the repo root.
-4. Click **Deploy**. Vercel serves `index.html` automatically.
+## Visual foundations
 
-> Prefer the CLI? Run `npx vercel` in this folder and follow the prompts.
+### Color
 
-## Editing
+**ArugaLife brand** — `--al-cream` `#F7F3E9` (page), `--al-cream-deep` `#EFE7D3` (alt),
+`--al-sage` `#DDE7D3` and `--al-sage-mid` `#A9C29D` (surfaces/borders),
+`--al-green` `#5E8062` and `--al-green-deep` `#2E4636` (brand + headings),
+`--al-terra` `#D26B3C` (primary action), `--al-gold` `#E8A53C` (highlight/numerals),
+`--al-ink` `#2B3A30` (body), `--al-muted` `#5D6B5E` (secondary).
 
-`index.html` is a compiled, self-contained bundle, so it isn't meant to be
-hand-edited. To make changes, update the source design and re-export a fresh
-`index.html`, then commit it.
+**Evera product** — `--ev-navy` `#0A2540` (surface), `--ev-orange` `#E8730A` (action),
+`--ev-green` `#1A7A4A` (success), `--ev-red` `#C0392B` (error), plus a gray scale
+(`--gray-50` … `--gray-700`).
 
-- **Evera link** points to the Evera retirement plan site.
-- A brief "Unpacking…" splash shows for a moment while the page unpacks itself on
-  load — this is normal for a self-contained bundle.
+Reach for the semantic aliases at the bottom of `tokens/colors.css` in real UI.
 
-## Accessibility & robustness
+### Type
 
-- Responsive down to small phones, with a slide-in mobile menu.
-- `prefers-reduced-motion` is respected (animations + drifting leaves disabled).
-- A thumbnail splash is shown as a no-JS fallback while the page loads.
+- **ArugaLife:** `--font-display` (Plus Jakarta Sans) for UI and headings, with
+  `--font-hand` (Caveat) as a sparing handwritten accent.
+- **Evera:** `--font-ui` (Source Sans 3) for UI, `--font-serif` (Libre Baskerville)
+  for formal headings.
+- Fluid display scale: `--fs-hero`, `--fs-h1`–`--fs-h3`, `--fs-lead`, `--fs-body`,
+  `--fs-sm`, `--fs-xs`. Weights `--fw-regular` (400) … `--fw-black` (800).
+
+### Spacing, radii & shadows
+
+In `tokens/spacing.css` — use these tokens rather than magic numbers.
+
+## Components
+
+React primitives in `components/` (namespace `window.ArugaLifeDesignSystem_233caa`):
+
+- **Core** — `Button`, `Badge`, `Card`, `Avatar`, `Eyebrow`
+- **Forms** — `Input`, `Select`
+
+Each has a `.d.ts` (API), a `.jsx` (source), and a `.prompt.md` (usage notes).
+
+## Assets
+
+In `assets/`: `logo-mark.svg`, `logo-lockup.svg`, `logo-lockup-dark.svg`, the brand
+value icons (`icon-malasakit`, `icon-bayanihan`, `icon-gabay`, `icon-tapat`), and
+`sampaguita-flower.jpg`. Copy what you need into your own files — don't hot-link.
+
+## Templates
+
+Ready-to-copy starting points live in `templates/`:
+
+- **ArugaLife Landing** (`templates/arugalife-landing`) — the marketing landing page.
+
+The reference recreations in `ui_kits/` (`arugalife-web`, `evera-app`) show the system
+in full context.
+
+## Repository layout
+
+| Path | What it is |
+|------|------------|
+| `styles.css` | Single entry stylesheet — `@import`s all tokens + fonts |
+| `tokens/` | Colors, typography, spacing/radii/shadows, fonts |
+| `components/` | React primitives (core + forms) |
+| `assets/` | Logos and brand SVG icons |
+| `templates/` | Copy-ready starting points |
+| `ui_kits/` | Full-context recreations (ArugaLife web, Evera app) |
+| `foundations/` | Visual specimen cards |
+| `export/` | Built, self-contained marketing site (`index.html`) for deploy |
+
+## Building with the system
+
+- **Visual artifacts** (slides, mocks, prototypes): copy assets out, link `styles.css`
+  for tokens, reuse the SVGs in `assets/`, and follow the voice + visual rules above.
+- **Evera app work:** Lucide icons + the navy/orange theme.
+- **ArugaLife brand work:** the warm sage/cream/terracotta palette + the brand SVGs.
+- Respect `prefers-reduced-motion` — disable decorative animation when it's set.
